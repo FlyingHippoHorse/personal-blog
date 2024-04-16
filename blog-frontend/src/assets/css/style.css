@@ -1,0 +1,6 @@
+.mlogo {
+    width: 200px; /* 设置图片宽度 */
+    height: auto; /* 根据宽度自动调整高度，保持比例 */
+    margin-top: 20px; /* 设置图片与上方的间距 */
+    margin-left: 50px; /* 设置图片与左侧的间距 */
+  }
