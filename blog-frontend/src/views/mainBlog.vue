@@ -11,6 +11,9 @@
               </h3>
               <p>{{ blog.description }}</p>
             </div>
+            <div class="click-times">
+              <span>click times</span>
+            </div>
           </el-card>
         </el-col>
       </el-row>
@@ -80,6 +83,18 @@
   margin-bottom: 2%; /* 竖直方向每行间距为2% */
   box-sizing: border-box; /* 计算宽度时包括边框和填充 */
 }
+.click-times {
+  text-align:right;
+  margin-bottom: 1px;
+  position: relative;
+  bottom: 0;
+  right: 0;
+  /* 为了防止内容溢出card边界，可以增加内边距 */
+  padding: 0.5em; 
+}
+.click-times span {
+  color: gray; /* 替换为你想要的颜色 */
+}
 .el-row {
   display: flex;
   flex-wrap: nowrap; /* 换行 */
@@ -88,5 +103,7 @@
   width: 20vw; /* 每个卡片宽度为25% */
   height: 30vh;
   flex: 1; /* 卡片自适应宽度和高度 */
+   margin-bottom: 0%;
+   margin-right: 0%;
 }
 </style>
