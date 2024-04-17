@@ -47,10 +47,10 @@ export default {
     }
   },
   created() {
-    const blogId = this.$route.params.blogId
+    const blogId = this.$route.params.blogId 
     const _this = this
     if(blogId) {
-      this.$axios.get('/blog/' + blogId).then((res) => {
+      this.$axios.get('blog/blog/' + blogId).then((res) => {
         const blog = res.data.data
         _this.editForm.id = blog.id
         _this.editForm.title = blog.title

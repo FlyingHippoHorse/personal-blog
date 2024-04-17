@@ -92,7 +92,7 @@
     mounted() {
       this.$notify({
         title: '看这里：',
-        message: '关注公众号：MarkerHub，回复【vueblog】，领取项目资料与源码',
+        message: '不要输错了！',
         duration: 1500
       });
     }
