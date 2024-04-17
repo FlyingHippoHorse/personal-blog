@@ -74,7 +74,7 @@
 
 <style scoped>
 .card-col {
-  width: 25%; /* 每个卡片宽度为25% */
+  width: 23%; /* 每个卡片宽度为25% */
   height: 50%; /* 每个卡片高度为10% */
   margin-right: 1%; /* 水平方向每个卡片间距为1% */
   margin-bottom: 2%; /* 竖直方向每行间距为2% */
