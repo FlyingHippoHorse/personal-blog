@@ -1,8 +1,8 @@
 <template>
-  <div class="m-content">
-    <h1>欢迎来到@FlyingHippo的博客</h1>
+  <div class="m-content"> 
+    <div style="margin-top: 50px;"></div>
     <div class="block">
-      <el-avatar :size="50" :src="user.avatar"></el-avatar>
+      <el-avatar :size="50" :src="avatar"></el-avatar>
       <div>{{user.username}}</div>
       <div class="maction">
         <span>
@@ -27,13 +27,14 @@
 </template>
 
 <script>
+  import githubLogo from '@/assets/GitHub-Mark.png';
 export default {
   name: "Header",
   data(){
     return{
       user:{
         username:'请先登录',
-        avatar:'https://cube.elemecdn.com/9/c2/f0ee8a3c7c9638a54940382568c9dpng.png'
+        avatar:githubLogo
       },
       hasLogin:false
     }
