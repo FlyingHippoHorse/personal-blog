@@ -32,11 +32,14 @@ public class BlogController {
     BlogService blogService;
 
     @GetMapping("/blogs")
-    public Result blogs(Integer currentPage) {
+    public Result blogs(Integer currentPage,Integer  pageSize) {
         if (currentPage == null || currentPage < 1) {
             currentPage = 1;
         }
-        Page page = new Page(currentPage, 5);
+        if (pageSize == null || pageSize < 1) {
+            pageSize = 8;
+        }
+        Page page = new Page(currentPage, pageSize);
         IPage pageData = blogService.page(page, new QueryWrapper<Blog>().orderByDesc("created"));
         return Result.succ(pageData);
     }

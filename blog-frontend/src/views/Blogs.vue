@@ -1,15 +1,15 @@
 <!--（博客列表）-->
 <template>
   <div class="mcontaner">
-    <div class="left">
+    <!-- <div class="left">
       <slideBar/>
-    </div>
+    </div> -->
     <div class="center">
       <mainBlogs/>
     </div>
-    <div class="right">
+    <!-- <div class="right">
       <calendor/>
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -42,21 +42,20 @@ export default {
   height: 100%;
   text-align:center;
 }
-.left {
+/* .left {
   width:170px;
   height:870px;
   position: fixed;
   top:0;
   left:0;
-}
+} */
 .center {
-  width:70%;
-  margin-left:170px;
+  width:90%; 
   /* margin-left:170px;*/
-  background-color: bisque; 
+  background-color: white; 
 }
-.right{
+/* .right{
   width:30%;
-}
+} */
 
 </style>

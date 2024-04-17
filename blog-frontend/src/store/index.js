@@ -11,7 +11,7 @@ export default new Vuex.Store({
   state: {
     token:'',
     //反序列化  将json转换成对象
-    userInfo:JSON.parse(sessionStorage.getItem("userInfo"))
+    userInfo: sessionStorage.getItem("userInfo") ? JSON.parse(sessionStorage.getItem("userInfo")) : null,
     }
   ,
   mutations: {
