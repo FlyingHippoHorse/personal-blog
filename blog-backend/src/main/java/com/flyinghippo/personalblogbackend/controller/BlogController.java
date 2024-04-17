@@ -40,7 +40,7 @@ public class BlogController {
             pageSize = 8;
         }
         Page page = new Page(currentPage, pageSize);
-        IPage pageData = blogService.page(page, new QueryWrapper<Blog>().orderByDesc("created"));
+        IPage pageData = blogService.page(page, new QueryWrapper<Blog>().eq("status","0").orderByDesc("created"));
         return Result.succ(pageData);
     }
 
