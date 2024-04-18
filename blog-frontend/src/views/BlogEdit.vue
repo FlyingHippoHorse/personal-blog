@@ -7,13 +7,15 @@
         <el-form-item label="标题" prop="title">
           <el-input v-model="editForm.title"></el-input>
         </el-form-item>
-        <el-form-item label="内容" prop="content">
+        <el-form-item label="封面" prop="content">
           <el-upload 
+          list-type="picture"
           :action="uploadImageUrl" 
           :headers="headers" 
           :on-success="handleSuccess" 
           :on-error="handleError" 
           :limit="1"
+          :file-list="imageList"
           :on-exceed="handleExceed"
           :before-upload="handleBeforeUpload" 
           :on-progress="handleProgress">
@@ -102,7 +104,8 @@
           id: null,
           title: '',
           description: '',
-          content: ''
+          content: '',
+          coverImg:''
         },
         rules: {
           title: [
@@ -125,11 +128,15 @@
           _this.editForm.title = blog.title
           _this.editForm.description = blog.description
           _this.editForm.content = blog.content
+          _this.editForm.coverImg = blog.coverImg
+          let img={name: blog.title, url:blog.coverImg}
+          _this.imageList.push(img)
         });
       }
     },
     methods: {
       handleSuccess(response, file, fileList) {
+        console.log(fileList)
         this.coverImg=response.data; 
         this.$message.success("上传成功");
       },
@@ -170,9 +177,6 @@
         // 校验通过，允许上传
         return true;
       },
-      handleExceed(files, fileList) {
-        this.$message.warning(`最多只能上传 3 张图片`);
-      }, 
       imgAdd(pos, file) {
         // 上传图片
         var formData = new FormData()
@@ -202,6 +206,7 @@
       },
       submitForm() {
         const _this = this
+        _this.editForm.coverImg=this.coverImg;
         this.$refs.editForm.validate((valid) => {
           if (valid) {
             this.$axios.post('blog/blog/edit', this.editForm, {
