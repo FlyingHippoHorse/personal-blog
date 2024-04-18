@@ -129,7 +129,7 @@
           _this.editForm.description = blog.description
           _this.editForm.content = blog.content
           _this.editForm.coverImg = blog.coverImg
-          let img={name: blog.title, url:blog.coverImg}
+          let img={name: blog.id, url:blog.coverImg}
           _this.imageList.push(img)
         });
       }

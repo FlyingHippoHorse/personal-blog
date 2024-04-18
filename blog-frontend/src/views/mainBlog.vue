@@ -5,11 +5,14 @@
       <el-row v-for="(group, index) in blogGroups" :key="index">
         <el-col :span="6" v-for="blog in group" :key="blog.id" class="card-col">
           <el-card class="timeline-card">
-            <div>
-              <h3>
-                <router-link :to="{ name: 'BlogDetail', params: { blogId: blog.id } }">{{ blog.title }}</router-link>
-              </h3>
-              <p>{{ blog.description }}</p>
+            <div class="content-wrapper" @click="goToBlogDetail(blog.id)">
+              <img :src="blog.coverImg" alt="Blog Cover" class="blog-cover-img">
+              <div>
+                <h3>
+                  <span class="blog-link">{{ blog.title }}</span>
+                </h3>
+                <p>{{ blog.description }}</p>
+              </div>
             </div>
             <div class="click-times">
               <span>click times</span>
@@ -53,7 +56,10 @@
       },
     },
     methods: {
-
+      // 跳转到博客详情页
+      goToBlogDetail(blogId) {
+        this.$router.push({ name: "BlogDetail", params: { blogId: blogId } });
+      },
       //请求结果进行赋值
       page(currentPage) {
         //  pageSize，如果未赋值则默认为 8
@@ -76,18 +82,7 @@
 </script>
 
 <style scoped>
-  .card-col {
-    width: 23%;
-    /* 每个卡片宽度为25% */
-    height: 50%;
-    /* 每个卡片高度为10% */
-    margin-right: 1%;
-    /* 水平方向每个卡片间距为1% */
-    margin-bottom: 2%;
-    /* 竖直方向每行间距为2% */
-    box-sizing: border-box;
-    /* 计算宽度时包括边框和填充 */
-  }
+ 
 
   .click-times {
     text-align: right;
@@ -104,19 +99,50 @@
     /* 替换为你想要的颜色 */
   }
 
-  .el-row {
-    display: flex;
-    flex-wrap: nowrap;
-    /* 换行 */
-  }
 
-  .timeline-card {
-    width: 20vw;
-    /* 每个卡片宽度为25% */
-    height: 30vh;
-    flex: 1;
-    /* 卡片自适应宽度和高度 */
-    margin-bottom: 0%;
-    margin-right: 0%;
+  .blog-cover-img {
+    max-width: 98%;
+    /* 图片最大宽度为父元素的宽度 */
+    height: 30%;
+    /* 图片高度为卡片高度的一半 */
+    object-fit: cover;
+    /* 填充整个区域 */
+    transform: scale(1.1);
+    /* 鼠标悬停时放大 */
   }
+  /* 添加到你的样式表中 */
+
+.card-col {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+    
+}
+.el-row {
+  flex-grow:1;
+  transition: transform 0.3s ease; /* 添加过渡效果 *//* 设置元素宽度为浏览器显示宽度 */
+}
+.blog-cover-img {
+  max-width: 100%;
+  height: auto;
+  object-fit: cover;
+  width: 100%;
+  min-height: 150px; /* 或者设置一个最小高度以保证有图片和无图片的差距不会太大 */
+}
+ 
+.timeline-card{
+   
+  border-style: solid; /* 设置为实线 */
+  border-color: rgb(196, 194, 194); /* 设置分隔线颜色 */
+  border-width: 1px; /* 设置分隔线宽度 */
+}
+.timeline-card .content-wrapper {
+  height: 40vh;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 10px; /* 根据需要设置内边距 */
+}
+ 
 </style>

@@ -9,8 +9,10 @@
     </div> -->
     <div class="center">
       <Header></Header>
-      <div class="mblog">
-        <h2>{{ blog.title }}</h2>
+      <div class="blog-image" :style="{ backgroundImage: `url(${blog.coverImg})` }">
+        <!-- Display the blog title on top of the image -->
+        <h2 class="blog-title">{{ blog.title }}</h2>
+      </div>
         <el-link icon="el-icon-edit" v-if="ownBlog">
           <router-link :to="{ name: 'BlogEdit', params: { blogId: blog.id } }">编辑</router-link>
         </el-link>
@@ -57,7 +59,8 @@
           title: "",
           description: "",
           content: "",
-          blogId: ""
+          blogId: "",
+          coverImg:''
         },
         ownBlog: false,
       };
@@ -110,7 +113,27 @@
 
 <style scoped>
  
+ .blog-image {
+  /* Style for the blog image container */
+  background-size: cover; /* Ensure the image covers the entire container */
+  background-position: center; /* Center the image */
+  position: relative; /* Position relative for absolute positioning of title */
+  height: 300px; /* Adjust the height as needed */
+  display: flex; /* Use flexbox for centering content */
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+}
 
+.blog-title {
+  /* Style for the blog title */
+  position: absolute; /* Position the title relative to its closest positioned ancestor */
+  color: white; /* Text color */
+  font-size: 24px; /* Adjust the font size as needed */
+  font-family: "宋体", cursive, sans-serif; /* Change the font family */
+  text-align: left; /* Left-align the text */
+  word-wrap: break-word; /* Allow text to wrap */
+}
+ 
   .detail {
     display: flex;
     flex-direction: row;
