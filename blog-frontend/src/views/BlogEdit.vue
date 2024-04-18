@@ -7,6 +7,29 @@
         <el-form-item label="标题" prop="title">
           <el-input v-model="editForm.title"></el-input>
         </el-form-item>
+        <el-form-item label="内容" prop="content">
+          <el-upload 
+          :action="uploadImageUrl" 
+          :headers="headers" 
+          :on-success="handleSuccess" 
+          :on-error="handleError" 
+          :limit="1"
+          :on-exceed="handleExceed"
+          :before-upload="handleBeforeUpload" 
+          :on-progress="handleProgress">
+            <el-button type="primary" size="medium">上传图片</el-button>
+          </el-upload>
+          <!--
+          action: 图片上传的地址
+          show-file-list: 是否显示文件上传列表
+          accept: 可接受的上传类型，image/*为图片
+          headers: 头部信息
+          on-success: 上传成功事件
+          on-error: 上传失败事件
+          before-upload: 上传前处理事件，返回一个值，值为false将阻止上传
+          on-progress: 上传中事件
+          -->
+        </el-form-item>
         <el-form-item label="摘要" prop="description">
           <el-input type="textarea" v-model="editForm.description"></el-input>
         </el-form-item>
@@ -33,7 +56,12 @@
     components: { Header },
     data() {
       return {
-
+        headers: {
+          Authorization:  localStorage.getItem("token")
+        },
+        uploadImageUrl: process.env.VUE_APP_UPLOAD_IMAGE_URL || 'http://localhost:8081/api/img/upload', // 若有环境变量则使用环境变量，否则使用默认值
+        imageList: [],
+        coverImg:'',
         toolbars: {
           bold: true, // 粗体
           italic: true, // 斜体
@@ -101,6 +129,50 @@
       }
     },
     methods: {
+      handleSuccess(response, file, fileList) {
+        this.coverImg=response.data; 
+        this.$message.success("上传成功");
+      },
+      handleError() {
+        this.$message.error("上传失败,请重新上传图片!");
+      },
+      handleBeforeUpload(file) {
+        const isJPGOrPNG = file.type === 'image/jpeg' || file.type === 'image/png';
+        if (!isJPGOrPNG) {
+          this.$message.error('只能上传 JPG/PNG 格式的图片!');
+        }
+        const isLt2M = file.size / 1024 / 1024 < 2;
+        if (!isLt2M) {
+          this.$message.error("上传图片大小不能超过 2MB!");
+        }
+        return isJPGOrPNG && isLt2M;
+      },
+      handleProgress(event, file, fileList) {
+        this.loading = true;  //  上传时执行loading事件
+      },
+      handleExceed(files, fileList) {
+      this.$message.warning(`最多只能上传 1 张图片`);
+    },
+      beforeUpload(file) {
+        const isJPGOrPNG = file.type === 'image/jpeg' || file.type === 'image/png';
+        const isLt500K = file.size / 1024 < 500;
+
+        if (!isJPGOrPNG) {
+          this.$message.error('只能上传 JPG/PNG 格式的图片!');
+          return false;
+        }
+        if (!isLt500K) {
+          this.$message.error('图片大小不能超过 500KB!');
+          return false;
+        }
+        // 添加 Authorization 请求头
+        this.headers.Authorization = localStorage.getItem("token");
+        // 校验通过，允许上传
+        return true;
+      },
+      handleExceed(files, fileList) {
+        this.$message.warning(`最多只能上传 3 张图片`);
+      }, 
       imgAdd(pos, file) {
         // 上传图片
         var formData = new FormData()
@@ -119,7 +191,7 @@
            * 2. 通过$refs获取: html声明ref : `<mavon-editor ref=md ></mavon-editor>，`$vm`为 `this.$refs.md`
           * 3. 由于vue运行访问的路径只能在static下，so，我就把图片保存到它这里了
            */
-          let url=data.data.data;
+          let url = data.data.data;
           console.log(url)
           this.$refs.md.$img2Url(pos, url)
         })

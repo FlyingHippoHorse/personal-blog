@@ -66,7 +66,7 @@ public class ImageFileController {
     private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd/");
 
     @PostMapping("/upload")
-    public Result<Object> handleImageUpload(@RequestParam("image") MultipartFile file, HttpServletRequest request) {
+    public Result<Object> handleImageUpload(@RequestParam("file") MultipartFile file, HttpServletRequest request) {
         //后半段目录：  2020/03/15
         String directory = simpleDateFormat.format(new Date());
         /**
