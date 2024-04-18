@@ -14,9 +14,16 @@
                 <p>{{ blog.description }}</p>
               </div>
             </div>
-            <div class="click-times">
-              <span>click times</span>
+            <div class="flex-container">
+              <div class="pub-date">
+                <!-- 使用方法格式化日期 -->
+                <span class="date-text">{{ formatDate(blog.created) }}</span>
+              </div>
+              <div class="click-times">
+                <span class="click-text">click times</span>
+              </div>
             </div>
+            
           </el-card>
         </el-col>
       </el-row>
@@ -56,6 +63,14 @@
       },
     },
     methods: {
+      // 方法用于格式化日期
+    formatDate(dateString) {
+      const dateObject = new Date(dateString);
+      const year = dateObject.getFullYear();
+      const month = (dateObject.getMonth() + 1).toString().padStart(2, "0");
+      const day = dateObject.getDate().toString().padStart(2, "0");
+      return `${year}-${month}-${day}`;
+    },
       // 跳转到博客详情页
       goToBlogDetail(blogId) {
         this.$router.push({ name: "BlogDetail", params: { blogId: blogId } });
@@ -77,6 +92,7 @@
     //调用 created方法
     created() {
       this.page(1);
+      
     },
   };
 </script>
@@ -84,22 +100,17 @@
 <style scoped>
  
 
-  .click-times {
-    text-align: right;
-    margin-bottom: 1px;
-    position: relative;
-    bottom: 0;
-    right: 0;
-    /* 为了防止内容溢出card边界，可以增加内边距 */
-    padding: 0.5em;
-  }
+   
 
   .click-times span {
     color: gray;
     /* 替换为你想要的颜色 */
   }
 
-
+  .flex-container {
+  display: flex; /* 使用 Flexbox 布局 */
+  justify-content: space-between; /* 左右对齐，并且两侧留有空白间距 */
+}
   .blog-cover-img {
     max-width: 98%;
     /* 图片最大宽度为父元素的宽度 */
@@ -129,7 +140,9 @@
   width: 100%;
   min-height: 150px; /* 或者设置一个最小高度以保证有图片和无图片的差距不会太大 */
 }
- 
+.blog-link{
+  font-family: "黑体", cursive, sans-serif;
+}
 .timeline-card{
    
   border-style: solid; /* 设置为实线 */
@@ -144,5 +157,10 @@
   justify-content: space-between;
   padding: 10px; /* 根据需要设置内边距 */
 }
- 
+.click-times .click-text {
+  color: gray; /* 修改字体颜色为灰色 */
+}
+.pub-date .date-text {
+  color: gray; /* 修改字体颜色为灰色 */
+}
 </style>
