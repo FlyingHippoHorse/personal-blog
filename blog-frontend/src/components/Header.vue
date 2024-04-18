@@ -8,12 +8,12 @@
         <span>
           <el-link type="info" href="/blogs">主页</el-link>
         </span>
-        <el-divider direction="vertical" v-show="hasLogin"></el-divider>
+        <el-divider direction="vertical" v-if="hasLogin"></el-divider>
         <span v-show="hasLogin">
            <el-link type="success" href="/blog/add">发表博客</el-link>
         </span>
         
-        <el-divider direction="vertical" v-show="hasLogin"></el-divider>
+        <el-divider direction="vertical" v-if="hasLogin"></el-divider>
         <span v-show="hasLogin">
           <el-link type="danger" @click="logout">退出</el-link>
         </span>
