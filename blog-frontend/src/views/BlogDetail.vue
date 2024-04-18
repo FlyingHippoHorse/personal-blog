@@ -1,6 +1,9 @@
 <!--（博客详情页）-->
 <template>
+  
+
   <div class="detail">
+  
     <!-- <div class="left">
       <slideBar />
     </div> -->
@@ -14,15 +17,16 @@
         <el-divider></el-divider>
         <div class="content markdown-body" v-html="blog.content"></div>
         <el-divider></el-divider>
-         
-          <el-divider></el-divider>
-          <!-- 做评论区 -->
-          <div id="artalk-comments"></div>
-        </div>
-      </div>
 
+        <el-divider></el-divider>
+         
+        <!-- 做评论区 -->
+        <div id="artalk-comments"></div>
+      </div>
     </div>
-    <!-- <div class="right">
+
+  </div>
+  <!-- <div class="right">
       <calendor/>
     </div> -->
   </div>
@@ -47,7 +51,7 @@
     components: { Header, slideBar, calendor },
     data() {
       return {
-         
+
         blog: {
           userId: null,
           title: "",
@@ -59,6 +63,9 @@
       };
     },
     methods: {
+      goBack() {
+        this.$router.go(-1);
+      },
       getBlog() {
         const blogId = this.$route.params.blogId;
         this.blog.blogId = blogId;
@@ -102,6 +109,8 @@
 </script>
 
 <style scoped>
+ 
+
   .detail {
     display: flex;
     flex-direction: row;

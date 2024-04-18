@@ -2,21 +2,18 @@
   <div class="m-content"> 
     <div style="margin-top: 50px;"></div>
     <div class="block">
-      <el-avatar :size="50" :src="avatar"></el-avatar>
-      <div>{{user.username}}</div>
+      <el-avatar :size="50" :src="require('@/assets/flyhippo.png')"></el-avatar>
+      <div>Flying Hippo</div>
       <div class="maction">
         <span>
           <el-link type="info" href="/blogs">主页</el-link>
         </span>
-        <el-divider direction="vertical"></el-divider>
-        <span>
+        <el-divider direction="vertical" v-show="hasLogin"></el-divider>
+        <span v-show="hasLogin">
            <el-link type="success" href="/blog/add">发表博客</el-link>
         </span>
-          <el-divider direction="vertical"></el-divider>
-        <span v-show="!hasLogin">
-          <el-link type="primary" href="/login">登录</el-link>
-        </span>
-        <el-divider direction="vertical"></el-divider>
+        
+        <el-divider direction="vertical" v-show="hasLogin"></el-divider>
         <span v-show="hasLogin">
           <el-link type="danger" @click="logout">退出</el-link>
         </span>
@@ -26,15 +23,14 @@
   </div>
 </template>
 
-<script>
-  import githubLogo from '@/assets/GitHub-Mark.png';
+<script> 
 export default {
   name: "Header",
   data(){
     return{
       user:{
         username:'请先登录',
-        avatar:githubLogo
+        
       },
       hasLogin:false
     }
