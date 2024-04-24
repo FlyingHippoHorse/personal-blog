@@ -1,21 +1,25 @@
-# vue-springbootblog
+# personal-blog-frontend
 
-## Project setup
+## 安装前端|Project setup
+
+install:
+
 ```
 npm install
 ```
 
-### Compiles and hot-reloads for development
-```
+run:
+
+```shell
 npm run serve
 ```
 
-### Compiles and minifies for production
+Compiles:
+
 ```
 npm run build
 ```
 
 ### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
 
-![img.png](img.png)
+See [Configuration Reference](https://cli.vuejs.org/config/).

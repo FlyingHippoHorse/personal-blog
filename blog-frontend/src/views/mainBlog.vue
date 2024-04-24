@@ -27,6 +27,7 @@
           </el-card>
         </el-col>
       </el-row>
+      <el-divider></el-divider>
       <!--带有背景色的分页  设置background属性可以为分页按钮添加背景色。-->
       <el-pagination class="mpage" background layout="prev, pager, next" :current-page="currentPage"
         :page-size="pageSize" :total="total" @current-change="page">
